@@ -21,16 +21,6 @@
         </Unzip>
     </Target>
 
-    <PropertyGroup>
-        <SignAssembly>True</SignAssembly>
-        <AssemblyOriginatorKeyFile Condition=" '$(IsOfficial)' == 'True' ">$(SolutionDir)official.snk</AssemblyOriginatorKeyFile>
-        <AssemblyOriginatorKeyFile Condition=" '$(IsOfficial)' != 'True' AND '$(IsOfficialCompatible)' != 'True' ">$(SolutionDir)unofficial.snk</AssemblyOriginatorKeyFile>
-        <AssemblyOriginatorKeyFile Condition=" '$(IsOfficial)' != 'True' AND '$(IsOfficialCompatible)' == 'True' ">$(SolutionDir)official-public.snk</AssemblyOriginatorKeyFile>
-        <PublicSign Condition=" '$(IsOfficial)' == 'True' AND '$(IsOfficialCompatible)' != 'True' ">False</PublicSign>
-        <PublicSign Condition=" '$(IsOfficial)' != 'True' OR '$(IsOfficialCompatible)' == 'True' ">True</PublicSign>
-    </PropertyGroup>
-
-
     <PropertyGroup Condition=" '$(IsOfficial)' == 'True' ">
         <DefineConstants Condition=" '$(DefineConstants)' != '' ">$(DefineConstants);OFFICIAL</DefineConstants>
         <DefineConstants Condition=" '$(DefineConstants)' == '' ">OFFICIAL</DefineConstants>

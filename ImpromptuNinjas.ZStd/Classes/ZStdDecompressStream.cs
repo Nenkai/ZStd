@@ -16,7 +16,9 @@ namespace ImpromptuNinjas.ZStd {
 
     private UIntPtr _suggestedNextInput = default;
 
-    public unsafe ZStdDecompressStream(Stream baseStream, int bufferSize = 4096) : base(baseStream) {
+    private bool _leaveOpen = false;
+
+    public unsafe ZStdDecompressStream(Stream baseStream, int bufferSize = 4096, bool leaveOpen = false) : base(baseStream) {
       if (baseStream == null)
         throw new ArgumentNullException(nameof(baseStream));
 
@@ -24,6 +26,7 @@ namespace ImpromptuNinjas.ZStd {
         bufferSize = 4096;
 
       _bufferSize = bufferSize;
+      _leaveOpen = leaveOpen;
 
       Decompressor = new ZStdDecompressor();
       Input = new Buffer((byte*) Marshal.AllocHGlobal(bufferSize), (UIntPtr) bufferSize, (UIntPtr) bufferSize);
@@ -55,7 +58,8 @@ namespace ImpromptuNinjas.ZStd {
         Disposed = true;
       }
 
-      base.Dispose(disposing);
+      if (!_leaveOpen)
+          base.Dispose(disposing);
     }
 
     public override void Flush()

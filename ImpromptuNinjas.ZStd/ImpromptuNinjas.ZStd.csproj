@@ -22,6 +22,7 @@
         <PackageIcon>icon.png</PackageIcon>
         <IsPackable>True</IsPackable>
         <GenerateAssemblyConfigurationAttribute>False</GenerateAssemblyConfigurationAttribute>
+        <SignAssembly>False</SignAssembly>
     </PropertyGroup>
 
     <ItemGroup>
